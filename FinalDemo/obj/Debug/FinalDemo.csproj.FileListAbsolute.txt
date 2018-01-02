@@ -1,0 +1,96 @@
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\obj\Debug\FinalDemo.csprojResolveAssemblyReference.cache
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\FinalDemo.dll.config
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\FinalDemo.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\FinalDemo.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Antlr4.StringTemplate.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\AuthTool.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\EntityFramework.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\FinalDemo.Database.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\FinalDemon.Domain.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Newtonsoft.Json.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Ninject.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Ninject.Web.Common.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Ninject.Web.Mvc.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Net.Http.Formatting.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Helpers.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Http.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Http.WebHost.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Mvc.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Razor.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.WebPages.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.WebPages.Razor.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\WebActivatorEx.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\AuthTool.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\FinalDemo.Database.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\FinalDemon.Domain.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Antlr4.StringTemplate.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\EntityFramework.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Ninject.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Ninject.Web.Common.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Ninject.Web.Mvc.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\Newtonsoft.Json.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Net.Http.Formatting.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Helpers.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Http.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Http.WebHost.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Mvc.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.Razor.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.WebPages.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\bin\System.Web.WebPages.Razor.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\obj\Debug\FinalDemo.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo\obj\Debug\FinalDemo.pdb
+E:\Bitbucket\bdms_final\FinalDemo\bin\FinalDemo.dll.config
+E:\Bitbucket\bdms_final\FinalDemo\bin\FinalDemo.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\FinalDemo.pdb
+E:\Bitbucket\bdms_final\FinalDemo\bin\AuthTool.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\CrystalDecisions.CrystalReports.Engine.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\CrystalDecisions.ReportSource.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\CrystalDecisions.Shared.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\FinalDemo.Database.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\FinalDemon.Domain.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\Microsoft.Web.Infrastructure.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\Mvc.Bootstrap.Core.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\MvcCheckBoxList.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\Newtonsoft.Json.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\Ninject.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\Ninject.Web.Common.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\Ninject.Web.Mvc.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Net.Http.Formatting.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Helpers.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Http.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Http.WebHost.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Mvc.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Razor.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.WebPages.Deployment.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.WebPages.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.WebPages.Razor.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\WebActivatorEx.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\EntityFramework.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\Antlr4.StringTemplate.dll
+E:\Bitbucket\bdms_final\FinalDemo\bin\AuthTool.pdb
+E:\Bitbucket\bdms_final\FinalDemo\bin\FinalDemo.Database.pdb
+E:\Bitbucket\bdms_final\FinalDemo\bin\FinalDemon.Domain.pdb
+E:\Bitbucket\bdms_final\FinalDemo\bin\Ninject.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\Ninject.Web.Common.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\Ninject.Web.Mvc.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\Newtonsoft.Json.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Net.Http.Formatting.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Helpers.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Http.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Http.WebHost.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Mvc.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.Razor.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.WebPages.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.WebPages.Deployment.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\System.Web.WebPages.Razor.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\EntityFramework.xml
+E:\Bitbucket\bdms_final\FinalDemo\bin\Antlr4.StringTemplate.pdb
+E:\Bitbucket\bdms_final\FinalDemo\obj\Debug\FinalDemo.csprojResolveAssemblyReference.cache
+E:\Bitbucket\bdms_final\FinalDemo\obj\Debug\FinalDemo.dll
+E:\Bitbucket\bdms_final\FinalDemo\obj\Debug\FinalDemo.pdb
+E:\Bitbucket\bdms_final\FinalDemo\bin\CrystalDecisions.Web.dll

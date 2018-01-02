@@ -1,0 +1,58 @@
+﻿@model  FinalDemo.Models.ChiViewModel
+@{
+    ViewBag.Title = "EditEmpty";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>EditEmpty</title>
+</head>
+<body>
+    <form method="post" action="/Chi/EditEmpty">
+        <table>
+            <tr>
+                <td>Mã Chi</td>
+            </tr>
+            <tr>
+                <td>Kí Hiêu</td>
+            </tr>
+            <tr>
+                <td>Họ</td>
+            </tr>
+            <tr>
+                <td>Danh Pháp</td>
+            </tr>
+            <tr>
+                <td>Tên</td>
+            </tr>
+            <tr>
+                <td>Người Phát Hiện</td>
+            </tr>
+            <tr>
+                <td>Năm Phát Hiện</td>
+            </tr>
+        </table>
+        @foreach (var item in Model.Chis)
+        {
+            <input type="text" name="Chi.MaChi" id="Chi.MaChi" value='@item.MaChi' readonly />
+            <br />  <input type="text" name="Chi.KiHieu" id="Chi.KiHieu" value='@item.KiHieu' />
+            <br />  <input type="text" name="Chi.Ho" id="Chi.Ho" value='@item.Ho' />
+            <br />  <input type="text" name="Chi.DPKH" id="Chi.DPKH" value='@item.DPKH' />
+            <br />  <input type="text" name="Chi.TenTV" id="Chi.TenTV" value='@item.TenTV' />
+            <br />  <input type="text" name="Chi.NguoiPH" id="Chi.NguoiPH" value='@item.NguoiPH' />
+            <br />  <input type="text" name="Chi.NamPH" id="Chi.NamPH" value='@item.NamPH' />
+
+        }
+
+        <input type="submit" class="btn btn-default" value="Submit" />
+    </form>
+
+    <div>
+        @Html.ActionLink("Back to List", "IndexChi")
+    </div>
+</body>
+
+</html>

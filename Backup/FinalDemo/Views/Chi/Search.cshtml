@@ -1,0 +1,69 @@
+﻿@model FinalDemo.Models.ChiViewModel
+<link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+<script src="/Scripts/jquery-1.11.1.min.js"></script>
+<script src="/Scripts/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+@{
+    ViewBag.Title = "Tìm Kiếm";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+
+<p>
+    @Html.ActionLink("CreateNew", "CreateNewChi")
+</p>
+<form method="post" action="/Chi/Search">
+    <input type="text" name="find" id="find" placeholder="Find">
+    <input type="submit" value="Search" />
+</form>
+<table class="table table-hover">
+    <tr>
+        <th>
+            Kí hiệu
+        </th>
+        <th>
+            Bộ
+        </th>
+        <th>
+            Danh pháp khoa học
+        </th>
+        <th>
+            Tên tiếng việt
+        </th>
+        <th>
+            Người phát hiện
+        </th>
+        <th>
+            Năm phát hiện
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Chis)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KiHieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ho)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DPKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NguoiPH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NamPH)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditEmpty", new { id = item.MaChi }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaChi }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaChi })
+            </td>
+        </tr>
+    }
+
+</table>

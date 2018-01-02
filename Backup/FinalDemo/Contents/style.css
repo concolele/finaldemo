@@ -1,0 +1,58 @@
+.main {
+    width: 1170px;
+    margin: 0 auto;
+    border: 1px solid #ededed;
+    padding: 10px;
+}
+.search {
+    margin-bottom: 15px;
+	
+}
+tr.trbo {
+    background: #1C71D2;
+    color: #fff;
+    height: 50px;
+}
+
+tr.trbo:hover {
+    background: #1C71D2!important;
+}
+tbody {
+    border: 1px solid #1C71D2;
+}
+tr.info_bo:nth-child(2n) {
+    background: #E1EDFA;
+}
+tr.trbo th {
+    padding-top: 13px!important;
+    text-transform: uppercase;
+}
+legend.title{
+  text-align: center;
+}
+.info-addnew {
+    margin-left: 150px;
+}
+
+.editor-field input {
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    border: #BAB3B3 solid 1px;
+    margin-bottom: 10px;
+}
+.editor-field select {
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+input.addImage {
+    border: 0;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}

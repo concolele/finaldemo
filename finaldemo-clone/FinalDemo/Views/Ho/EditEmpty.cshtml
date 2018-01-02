@@ -1,0 +1,58 @@
+﻿@model  FinalDemo.Models.HoViewModel
+@{
+    ViewBag.Title = "EditEmpty";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>EditEmpty</title>
+</head>
+<body>
+    <form method="post" action="/Ho/EditEmpty">
+        <table>
+            <tr>
+                <td>Mã Họ</td>
+            </tr>
+            <tr>
+                <td>Kí Hiêu</td>
+            </tr>
+            <tr>
+                <td>Bộ</td>
+            </tr>
+            <tr>
+                <td>Danh Pháp</td>
+            </tr>
+            <tr>
+                <td>Tên</td>
+            </tr>
+            <tr>
+                <td>Người Phát Hiện</td>
+            </tr>
+            <tr>
+                <td>Năm Phát Hiện</td>
+            </tr>
+        </table>
+        @foreach (var item in Model.Hos)
+        {
+            <input type="text" name="Ho.MaHo" id="Ho.MaHo" value='@item.MaHo' readonly />
+            <br />  <input type="text" name="Ho.KiHieu" id="Ho.KiHieu" value='@item.KiHieu' />
+            <br />  <input type="text" name="Ho.Bo" id="Ho.Bo" value='@item.Bo' />
+            <br />  <input type="text" name="Ho.DPKH" id="Ho.DPKH" value='@item.DPKH' />
+            <br />  <input type="text" name="Ho.TenTV" id="Ho.TenTV" value='@item.TenTV' />
+            <br />  <input type="text" name="Ho.NguoiPH" id="Ho.NguoiPH" value='@item.NguoiPH' />
+            <br />  <input type="text" name="Ho.NamPH" id="Ho.NamPH" value='@item.NamPH' />
+
+        }
+
+        <input type="submit" class="btn btn-default" value="Submit" />
+    </form>
+
+    <div>
+        @Html.ActionLink("Back to List", "IndexHo")
+    </div>
+</body>
+
+</html>

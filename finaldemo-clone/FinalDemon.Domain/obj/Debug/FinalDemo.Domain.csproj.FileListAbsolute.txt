@@ -1,0 +1,7 @@
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\bin\Debug\FinalDemon.Domain.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\bin\Debug\FinalDemon.Domain.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\bin\Debug\FinalDemo.Database.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\bin\Debug\FinalDemo.Database.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\obj\Debug\FinalDemo.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\obj\Debug\FinalDemon.Domain.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\obj\Debug\FinalDemon.Domain.pdb

@@ -1,0 +1,17 @@
+﻿@model FinalDemo.Models.PhanNhomViewModel
+
+@{
+    ViewBag.Title = "Phân Nhóm";
+}
+
+<h2>Nhóm người dùng</h2>
+
+@using (Html.BeginForm("PhanNhom"))
+{
+    @Html.HiddenFor(x => x.MaDoiTuong)
+    <div>
+        <h3>Chọn:</h3>
+    </div>
+    @Html.CheckBoxListFor(x => x.PostedGroups.NhomSelect, x => x.AllGroup, v => v.IdGroup, v => v.TenNhom, x => x.SelectedGroup, MvcCheckBoxList.Model.Position.Vertical)
+    <button type="submit">Lưu</button>
+}

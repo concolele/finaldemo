@@ -1,0 +1,35 @@
+﻿@model AuthTool.TaiKhoan
+@{
+    ViewBag.Title = "Đăng nhập";
+}
+
+<h2>Đăng nhập</h2>
+
+@using (Html.BeginForm("Login", "NguoiDung", FormMethod.Post))
+{
+    <input type="text" value="@TempData["returnUrl"]" name="ReturnUrl" />
+    <table>
+        <tr>
+            <td>Tên đăng nhập:</td>
+            <td>@Html.EditorFor(x => x.TenTaiKhoan)</td>
+        </tr>
+        <tr>
+            <td>Mật khẩu:</td>
+            <td>
+                @Html.EditorFor(x => x.MatKhau, new { type="password" })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Đang nhập" />
+            </td>
+        </tr>
+    </table> 
+       
+}
+<p>
+    <a href="/NguoiDung/RegisterUser" >Register</a>
+    <a href="/Home/Index">Home</a>
+    <a href="/NguoiDung/ForgotPassword">ForgotPassword</a>
+
+</p>

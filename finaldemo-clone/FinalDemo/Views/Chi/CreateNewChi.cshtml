@@ -1,0 +1,76 @@
+﻿@model FinalDemo.Domain.Entities.Chi
+
+@{
+    ViewBag.Title = "CreateNewChi";
+}
+
+<h2>CreateNewChi</h2>
+
+@using (Html.BeginForm("CreateNewChi", "Chi"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Chi</legend>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.KiHieu)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.KiHieu)
+            @Html.ValidationMessageFor(model => model.KiHieu)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ho)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Ho, ViewBag.ListOfCodes as SelectList, "")
+            @Html.ValidationMessageFor(model => model.Ho)
+
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DPKH)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DPKH)
+            @Html.ValidationMessageFor(model => model.DPKH)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TenTV)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TenTV)
+            @Html.ValidationMessageFor(model => model.TenTV)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NguoiPH)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NguoiPH)
+            @Html.ValidationMessageFor(model => model.NguoiPH)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NamPH)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NamPH)
+            @Html.ValidationMessageFor(model => model.NamPH)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "IndexHo")
+</div>
+

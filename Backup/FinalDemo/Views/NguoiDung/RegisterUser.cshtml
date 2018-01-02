@@ -1,0 +1,74 @@
+﻿@model AuthTool.TaiKhoan
+<link href="~/Contents/style.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Tạo tài khoản";
+}
+<div class="main">
+    @using (Html.BeginForm("RegisterUser", "NguoiDung"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend class="title">Tạo tài Khoản</legend>
+            <div class="info-addnew">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.TenTaiKhoan)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.TenTaiKhoan)
+                    @Html.ValidationMessageFor(model => model.TenTaiKhoan)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MatKhau)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.MatKhau)
+                    @Html.ValidationMessageFor(model => model.MatKhau)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.HoLot)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.HoLot)
+                    @Html.ValidationMessageFor(model => model.HoLot)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Ten)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Ten)
+                    @Html.ValidationMessageFor(model => model.Ten)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Email)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.NgaySinh)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.NgaySinh)
+                    @Html.ValidationMessageFor(model => model.NgaySinh)
+                </div>
+
+                <p>
+                    <input type="submit" value="Create" />
+                </p>
+            </div>
+        </fieldset>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+

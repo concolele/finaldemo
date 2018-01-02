@@ -1,0 +1,601 @@
+﻿@model FinalDemo.Models.ParentModelView
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="/Scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+    <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.4"></script>
+    <style>
+        html, body, #map {
+            height: 90%;
+            margin: 0;
+            padding: 0;
+            width: 100%!important;
+        }
+
+        #pointButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 40;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.10/"></script>
+    <script>
+        var map;
+        var currentPoint = null;
+        require([
+        "dojo/parser",
+        "dojo/ready",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dojo/dom",
+        "esri/map",
+        //"esri/Color",
+        "esri/urlUtils",
+        "esri/arcgis/utils",
+        "esri/dijit/Legend",
+        "esri/dijit/Scalebar",
+        "dojo/domReady!"
+        ], function (
+        parser,
+        ready,
+        BorderContainer,
+        ContentPane,
+        dom,
+        Map,
+        urlUtils,
+        arcgisUtils,
+        Legend,
+        //Color,
+        Scalebar
+        ) {
+            ready(function () {
+                parser.parse();
+                //711d128d63b149d3bfbe4becabbf15ed đà nẵng basemap
+                //ff5b347d83f64a1b8fa8823739c60329
+                //9bf53a5574d940df8642b9040877ce39
+                arcgisUtils.createMap("711d128d63b149d3bfbe4becabbf15ed", "map").then(function (response) {
+                    //update the app
+                    map = response.map;
+                    //var makerSimple =new esri.symbol.SimpleMarkerSymbol().setSize(10).setColor(new Color([255,0,0]));
+                    var xmin = 0;
+                    var xmax = 0;
+                    var ymin = 0;
+                    var ymax = 0;
+                    var list = @Html.Raw(Json.Encode(ViewBag.CoorUser));
+                    for(i=0 ; i<list.length ; i++){
+                        map.graphics.add(new esri.Graphic(new esri.geometry.Point(list[i].ViDo, list[i].KinhDo, map.spatialReference),new esri.symbol.SimpleMarkerSymbol().setStyle("diamond")));
+                    }
+                    dojo.connect(map, "onExtentChange", showExtent);
+
+                    function showExtent(evt) {
+                        var s = "";
+                        s = "XMin: "+ evt.xmin.toFixed()    + "&nbsp;"
+                            +"YMin: " + evt.ymin.toFixed()  + "&nbsp;"
+                            +"XMax: " + evt.xmax.toFixed()  + "&nbsp;"
+                            +"YMax: " + evt.ymax.toFixed()  + "&nbsp;";
+                        xmin = evt.xmin.toFixed();
+                        xmax = evt.xmax.toFixed();
+                        ymin = evt.ymin.toFixed();
+                        ymax = evt.ymax.toFixed();
+                        dojo.byId("info").innerHTML = s;
+
+                    }
+                    //chỉ cần kiểm tra điểm mới sau khi đánh dấu
+                    map.on("click", mapClick);
+
+                    function mapClick(evt) {
+                        var x = evt.mapPoint.x.toFixed();
+                        var y = evt.mapPoint.y.toFixed(); //alert("x= " + x + " y= " + y);alert(xmin + " " + xmax + " " + ymin + " " + ymax);
+                        var isPointExist = false;
+                        for(i=0 ; i<list.length ; i++){
+                            //var xdis = ((xmax-xmin)/96/2 == 0) ? 1100 : (xmax-xmin)/96/2;
+                            //var ydis = ((ymax-ymin)/41/2 == 0) ? 1100 : (ymax-ymin)/41/2;
+                            var xdis = ((xmax-xmin)/96/2 == 0) ? 2200 : (xmax-xmin)/96;
+                            var ydis = ((ymax-ymin)/41/2 == 0) ? 2200 : (ymax-ymin)/41;
+                            if ((Math.abs(x - list[i].ViDo) < xdis) && (Math.abs(y - list[i].KinhDo) < ydis)){
+                                x = list[i].ViDo;
+                                y = list[i].KinhDo;
+                                isPointExist = true; //alert(isPointExist);
+                                break;
+                            }
+                        }
+                        $("#x").val(x);// + "," + xmax + "," +ymax);
+                        $("#y").val(y);// + "," + xmin + "," +ymin);
+
+                        if (isPointExist){
+                            $.ajax({
+                                type: "POST",
+                                url: "/QuanLyCaNhan/ThongTinPhanBo",
+                                data: {
+                                    x : x,
+                                    y : y,
+                                }
+                            })
+                            .done(function (msg) {
+                                $("#msg").html(msg);
+                            });
+                        }
+                        if (isPointExist == false){
+                            $("#msg").html("Chưa có dữ liệu<br>");
+                            newPoint = new esri.Graphic(evt.mapPoint, new esri.symbol.SimpleMarkerSymbol);
+                            map.graphics.add(newPoint);
+                            if (currentPoint != null) {
+                                map.graphics.remove(currentPoint);
+                            }
+
+                            currentPoint = newPoint;
+
+                            //break;
+                        }
+
+                        var resizeTimer;
+                        dojo.connect(dijit.byId("map"), "resize", function() {
+                            clearTimeout(resizeTimer);
+
+                            resizeTimer = setTimeout(function() {
+                                map.resize();
+                                map.reposition();
+                                map.time
+                            }, 500);
+                        });
+                        $('#myModal').modal('toggle');
+                        $("#demo").attr("class", "collapse");
+
+                    } // the end mapClick
+
+
+
+                    var scalebar = new Scalebar({
+                        map: map,
+                        scalebarUnit: "english"
+                    });
+
+                    //add the legend. Note that we use the utility method getLegendLayers to get
+                    //the layers to display in the legend from the createMap response.
+                    var legendLayers = arcgisUtils.getLegendLayers(response);
+                    var legendDijit = new Legend({
+                        map: map,
+                        layerInfos: legendLayers
+                    }, "legend");
+                    legendDijit.startup();
+
+
+
+                });//the end createMap
+                //dojo.read();
+            });//the end ready function
+        });// the end require
+
+        function addButtonClick() {
+            //$('#myAddPhanBoModal').modal('toggle');
+            $("#cbbGioi").html("<option value=''>Chọn giới</option>");
+            $("#cbbNganh").html("");
+            $("#cbbLop").html("");
+            $("#cbbBo").html("");
+            $("#cbbHo").html("");
+            $("#cbbChi").html("");
+            $("#cbbLoai").html("");
+            $.ajax({
+                type: "POST",
+                url: "/QuanLyCaNhan/GetAllGiois",
+            })
+            .done(function (msg) {
+                if(msg != "-1")
+                    $("#cbbGioi").html($("#cbbGioi").html() + msg);
+                else
+                {
+                    alert("Ban khong duoc phep su dung chuc nang nay");
+                    //Luc nay disable cac control khac hoac hide modal
+                    //$('#myModal').hide();
+                }
+            });
+        }
+
+        function cbbGioiChange() {
+            var maGioi = $("#cbbGioi").val();
+            $.ajax({
+                type: "POST",
+                url: "/QuanLyCaNhan/GetAllNganhsByGioi",
+                data: {
+                    maGioi : maGioi,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbNganh").html(msg);
+            });
+        }
+
+        function cbbNganhChange() {
+            var maNganh = $("#cbbNganh").val();
+            $.ajax({
+                type: "POST",
+                url: "/QuanLyCaNhan/GetAllLopsByNganh",
+                data: {
+                    maNganh : maNganh,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbLop").html(msg);
+            });
+        }
+
+        function cbbLopChange() {
+            var maLop = $("#cbbLop").val();
+            $.ajax({
+                type: "POST",
+                url: "/QuanLyCaNhan/GetAllBosByLop",
+                data: {
+                    maLop : maLop,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbBo").html(msg);
+            });
+        }
+
+        function cbbBoChange() {
+            var maBo = $("#cbbBo").val();
+            $.ajax({
+                type: "POST",
+                url: "/QuanLyCaNhan/GetAllHosByBo",
+                data: {
+                    maBo : maBo,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbHo").html(msg);
+            });
+        }
+
+        function cbbHoChange() {
+            var maHo = $("#cbbHo").val();
+            $.ajax({
+                type: "POST",
+                url: "/QuanLyCaNhan/GetAllChisByHo",
+                data: {
+                    maHo : maHo,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbChi").html(msg);
+            });
+        }
+
+        function cbbChiChange() {
+            var maChi = $("#cbbChi").val();
+            $.ajax({
+                type: "POST",
+                url: "/QuanLyCaNhan/GetAllLoaisByChi",
+                data: {
+                    maChi : maChi,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbLoai").html(msg);
+                //$("#cbbLoai option:selected").html(msg);
+                //$("#phanBo.MaLoai").val($("#cbbLoai option:selected").text());
+
+            });
+        }
+
+        function cbbLoaiChange(){
+            //alert("aaa");
+            //alert($("#cbbLoai").val());
+            //document.getElementById("phanBo.MaLoai").innerHTML="a";
+            $("#MaLoai").val($("#cbbLoai").val());
+        }
+        $(document).ready(
+
+  /* This is the function that will get executed after the DOM is fully loaded */
+      function () {
+          $( "#datepicker" ).datepicker({
+              changeMonth: true,
+              changeYear: true, 
+              dateFormat: 'yy-mm-dd',
+              showStatus: true,
+              showWeeks: true,
+              highlightWeek: true,
+              numberOfMonths: 1,
+              showAnim: "scale",
+              showOptions: {
+                  origin: ["top", "left"]}
+          });
+      }
+
+);
+    </script>
+</head>
+<body>
+    @{
+        ViewBag.Title = "Quản Lý Cá Nhân";
+        Layout = "~/Views/Share/Index.cshtml";
+    }
+      
+        <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href="#a1" data-toggle="tab">Quản lí các Phân bố</a></li>
+                <li><a href="#a2" data-toggle="tab">Quản lí các Họ mới</a></li>
+                <li><a href="#a3" data-toggle="tab">Quản lí các Chi mới</a></li>
+                <li><a href="#a4" data-toggle="tab">Quản lí các Loài mới</a></li>
+                <li><a href="#a5" data-toggle="tab">Quản lí các Bộ mới</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="a1">
+                    <div id="xmin">
+
+                    </div>
+                    <div id="ymin">
+
+                    </div>
+                    <div id="map">
+                        <span id="info" style="position:absolute; left:15px; bottom:5px; color:#000; z-index:50;"></span>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="a2">
+                    @Html.RouteLink("Tạo mới Họ", new { controller = "Ho", action = "CreateNewHo" })
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Bộ</th>
+                                <th>Danh Pháp Khoa Học</th>
+                                <th>Tên Tiếng Việt</th>
+                                <th>Người Phát Hiện</th>
+                                <th>Năm Phát Hiện</th>
+                                <th>Ngày Cập Nhât</th>
+                                <th>Ngày Đăng Bài</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ho.Hos)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Bo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DPKH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenTV)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NguoiPH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NamPH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayCapNhat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayDangBai)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Đăng bài", "ApproveHo", new { id = item.MaHo })|
+                                        @Html.RouteLink("Edit", new { controller = "Ho", action = "EditEmpty", id = item.MaHo, maNguoiTao = item.MaNguoiTao }) |
+                                        @Html.RouteLink("Xem Chi tiết", new { controller = "Ho", action = "Details", id = item.MaHo }) |
+                                        @Html.RouteLink("Xóa Họ", new { controller = "Ho", action = "Delete", id = item.MaHo })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="a3">
+                    @Html.RouteLink("Tạo mới Chi", new { controller = "Chi", action = "CreateNewChi" })
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Lớp</th>
+                                <th>Danh Pháp Khoa Học</th>
+                                <th>Tên Tiếng Việt</th>
+                                <th>Người Phát Hiện</th>
+                                <th>Năm Phát Hiện</th>
+                                <th>Ngày Cập Nhât</th>
+                                <th>Ngày Đăng Bài</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.chi.Chis)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ho)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DPKH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenTV)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NguoiPH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NamPH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayCapNhat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayDangBai)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Đăng bài", "ApproveChi", new { id = item.MaChi })|
+                                        @Html.RouteLink("Edit", new { controller = "Chi", action = "EditEmpty", id = item.MaChi, maNguoiTao = item.MaNguoiTao }) |
+                                        @Html.RouteLink("Xem Chi tiết", new { controller = "Chi", action = "Details", id = item.MaChi }) |
+                                        @Html.RouteLink("Xóa Chi", new { controller = "Chi", action = "Delete", id = item.MaChi })
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="a4">
+                    @Html.RouteLink("Tạo mới Loài", new { controller = "Loai", action = "CreateNewLoai" })
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Hình ảnh</th>
+                                <th>Chi</th>
+                                <th>Danh Pháp Khoa Học</th>
+                                <th>Tên Tiếng Việt</th>
+                                <th>Người Phát Hiện</th>
+                                <th>Năm Phát Hiện</th>
+                                <th>Ngày Cập Nhât</th>
+                                <th>Ngày Đăng Bài</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.loai.Loais)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="@Url.Content("~/Photos/"+@item.Image)" alt="" class="img-rounded" style="width:140px;height:140px" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Chi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DPKH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenTG)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NguoiPH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NamPH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayCapNhat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayDangBai)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Đăng bài", "ApproveLoai", new { id = item.MaLoai })|
+                                        @Html.RouteLink("Edit", new { controller = "Loai", action = "EditEmpty", id = item.MaLoai, maNguoiTao = item.MaNguoiTao }) |
+                                        @Html.RouteLink("Xem Chi tiết", new { controller = "Loai", action = "Details", id = item.MaLoai }) |
+                                        @Html.RouteLink("Xóa Loài", new { controller = "Loai", action = "Delete", id = item.MaLoai })
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="a5">
+                    @Html.RouteLink("Tạo mới Bộ", new { controller = "Bo", action = "CreateNewBo" })
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Lớp</th>
+                                <th>Danh Pháp Khoa Học</th>
+                                <th>Tên Tiếng Việt</th>
+                                <th>Người Phát Hiện</th>
+                                <th>Năm Phát Hiện</th>
+                                <th>Ngày Cập Nhât</th>
+                                <th>Ngày Đăng Bài</th>
+                                <th>Các thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.bo.Bos)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lop)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DPKH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenTV)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NguoiPH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NamPH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayCapNhat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayDangBai)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Đăng bài", "ApproveBo", new { id = item.MaBo }) |
+                                        @Html.RouteLink("Chỉnh sửa", new { controller = "Bo", action = "EditEmpty", id = item.MaBo, maNguoiTao = item.MaNguoiTao }) |
+                                        @Html.RouteLink("Xem Chi tiết", new { controller = "Bo", action = "Details", id = item.MaBo }) |
+                                        @Html.RouteLink("Xóa Bộ", new { controller = "Bo", action = "Delete", id = item.MaBo })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Phân Bố</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div id="msg"></div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo" onclick="addButtonClick()">Thêm Phân Bố</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <div id="demo" class="collapse">
+                                    <form method="post" action="/QuanLyCaNhan/AddPhanBo">
+
+                                        <select id="cbbGioi" onchange="cbbGioiChange();">
+                                            <option value="">Chọn bộ</option>
+                                        </select>
+                                        <select id="cbbNganh" onchange="cbbNganhChange();"></select>
+                                        <select id="cbbLop" onchange="cbbLopChange();"></select>
+                                        <select id="cbbBo" onchange="cbbBoChange();"></select>
+                                        <select id="cbbHo" onchange="cbbHoChange();"></select>
+                                        <select id="cbbChi" onchange="cbbChiChange();"></select>
+                                        <select id="cbbLoai" onchange="cbbLoaiChange();"></select>
+                                        <input type="hidden" name="x" id="x" value=$(#x).val() />
+                                        <input type="hidden" name="y" id="y" value=$(#y).val() />
+                                        <input type="hidden" name="phanBo.MaLoai" id="MaLoai" />
+                                        <br />Tỉ Lệ Phân Bố: <input type="text" name="phanBo.TiLePhanBo" />
+                                        <br />Mật Độ: <input type="text" name="phanBo.MatDo" />
+                                        <br />Số Lượng Cá Thể: <input type="text" name="phanBo.SoLuongCaThe" />
+                                        <br /><p>Ngày cập nhật: <input type="text" id="datepicker" name="phanBo.NgayCapNhat" /></p>
+                                        <div class="modal-footer">
+                                            <input type="submit" class="btn btn-default" value="Submit" />
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <script src="/Scripts/bootstrap.min.js"></script>
+        <script src="/Scripts/modal.js"></script>
+</body>
+
+</html>
+

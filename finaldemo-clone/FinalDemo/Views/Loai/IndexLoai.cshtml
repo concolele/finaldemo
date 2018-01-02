@@ -1,0 +1,119 @@
+﻿@model FinalDemo.Models.LoaiViewModel
+<link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+@{
+    ViewBag.Title = "IndexLoai";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("CreateNewLoai", "CreateNewLoai")
+</p>
+<form method="post" action="/Loai/Search">
+    <input type="text" name="find" id="find" placeholder="Find">
+    <input type="submit" value="Search" />
+</form>
+<table class="table table-hover">
+    <tr>
+        <th>
+            KiHieu
+        </th>
+        <th>
+            Chi
+        </th>
+        <th>
+            DPKH
+        </th>
+        <th>
+            TenTg
+        </th>
+        <th>
+            TenK
+        </th>
+        <th>
+            Số Lượng
+        </th>
+        <th>
+            Đặc điểm sinh sản
+        </th>
+        <th>
+            Đặc điểm giới tính
+        </th>
+        <th>
+            Đặc điểm khác
+        </th>
+        <th>
+            Mức độ
+        </th>
+        <th>
+            NguoiPH
+        </th>
+        <th>
+            NamPH
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Loais)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KiHieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DPKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DDSinhSan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DDGioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DDKhac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MucDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NguoiPH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NamPH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TapTinhSH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KichCoTB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThucAn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.XuatXu)
+            </td>
+            <td>
+                <img src="@Url.Content("~/Photos/"+@item.Image)" alt="" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaLoai }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaLoai }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaLoai })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,68 @@
+﻿@model FinalDemo.Models.HoViewModel
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<p>
+    @Html.ActionLink("CreateNew", "CreateNewHo")
+</p>
+<form method="post" action="/Ho/Search">
+    <input type="text" name="find" id="find" placeholder="Find">
+    <input type="submit" value="Search" />
+</form>
+<table border="1">
+    <tr>
+        <th>
+            KiHieu
+        </th>
+        <th>
+            Bo
+        </th>
+        <th>
+            DPKH
+        </th>
+        <th>
+            TenTV
+        </th>
+        <th>
+            NguoiPH
+        </th>
+        <th>
+            NamPH
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Hos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KiHieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DPKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NguoiPH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NamPH)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditEmpty", new { id = item.MaHo }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaHo }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaHo })
+            </td>
+        </tr>
+    }
+
+</table>

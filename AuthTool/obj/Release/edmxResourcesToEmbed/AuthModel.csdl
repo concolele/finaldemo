@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FinalDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ChucNang">
+    <Key>
+      <PropertyRef Name="IdChucNang" />
+    </Key>
+    <Property Name="IdChucNang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenChucNang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DieuKhien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhuongThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Xoa" Type="Boolean" />
+    <Property Name="NgayXoa" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="IdGroup" />
+    </Key>
+    <Property Name="IdGroup" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenNhom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Khoa" Type="Boolean" />
+    <Property Name="Xoa" Type="Boolean" />
+    <Property Name="NgayXoa" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="PhanQuyen">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ObjId" Type="Int32" />
+    <Property Name="ObjType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Xoa" Type="Boolean" />
+    <Property Name="NgayXoa" Type="DateTime" Precision="3" />
+    <Property Name="IdChucNang" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TaiKhoan">
+    <Key>
+      <PropertyRef Name="MaTaiKhoan" />
+    </Key>
+    <Property Name="MaTaiKhoan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenTaiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HoLot" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+    <Property Name="Khoa" Type="Boolean" />
+    <Property Name="MaKichHoat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgayKichHoat" Type="DateTime" Precision="0" />
+    <Property Name="NgayTao" Type="DateTime" Precision="3" />
+    <Property Name="NgaySua" Type="DateTime" Precision="3" />
+    <Property Name="Xoa" Type="Boolean" />
+    <Property Name="NgayXoa" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="UserGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="GroupId" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="FinalDemoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ChucNangs" EntityType="Self.ChucNang" />
+    <EntitySet Name="Groups" EntityType="Self.Group" />
+    <EntitySet Name="PhanQuyens" EntityType="Self.PhanQuyen" />
+    <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
+    <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,61 @@
+﻿<script src="/Scripts/jquery-1.11.1.min.js"></script>
+<script src="/Scripts/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+<link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+<link href="/Contents/style.css" rel="stylesheet" />
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/Home/Index">Trang chủ</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling Request.Cookies["groupId"] != null && -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index:10000">
+            <ul class="nav navbar-nav">
+                <li><a href="/Bo/IndexBo">Bộ<span class="sr-only">(current)</span></a></li>
+                <li><a href="/Ho/IndexHo">Họ<span class="sr-only">(current)</span></a></li>
+                <li><a href="/Chi/IndexChi">Chi<span class="sr-only">(current)</span></a></li>
+                <li><a href="/Loai/IndexLoai">Loài<span class="sr-only">(current)</span></a></li>
+                <li><a href="/ThongKe/Test">Xem Thống kê<span class="sr-only">(current)</span></a></li>
+                @if (Request.Cookies["groupId"] != null && Request.Cookies["groupId"].Value.LastIndexOf("2") != -1)
+                {
+                    <li><a href="/QuanLyCaNhan/Index">Thông tin cá nhân<span class="sr-only">(current)</span></a></li>
+                }
+                @if (Request.Cookies["groupId"] != null && Request.Cookies["groupId"].Value.LastIndexOf("4") != -1)
+                {
+                    <li><a href="/QuanLySinhThai/Index">Thông tin sinh thái<span class="sr-only">(current)</span></a></li>
+                }
+                @if (Request.Cookies["groupId"] != null && Request.Cookies["groupId"].Value.LastIndexOf("1") != -1)
+                {
+                    <li><a href="/QuanTri/Index">Quản lý người dùng<span class="sr-only">(current)</span></a></li>
+                }
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thông tin chung<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        Chịu trách nhiệm hệ thống:
+                        <li><a href="http://it.ued.vn/">Khoa Tin - Đại học Sư phạm Đà Nẵng<span class="sr-only">(current)</span></a></li>
+                        Lập trình:
+                        <li><a href="#">Trần Thanh Vinh<span class="sr-only">(current)</span></a></li>
+                        Chịu trách nhiệm dữ liệu:
+                        <li><a href="www.bio-env.edu.vn/">Khoa Sinh Môi trường - Đại học Sư phạm Đà Nẵng<span class="sr-only">(current)</span></a></li>
+                        Thống kê sinh học:
+                        <li><a href="#">Nhi Lê<span class="sr-only">(current)</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="nav navbar-nav navbar-right">
+                @{Html.RenderAction("SignInOutPanel");}
+            </div>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+@RenderBody()
+<div id=" footer"></div>
+<script src="/Scripts/bootstrap.min.js"></script>

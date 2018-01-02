@@ -1,0 +1,72 @@
+﻿@model AuthTool.TaiKhoan
+
+@{
+    ViewBag.Title = "ThongTinCaNhan";
+}
+
+<h2>ThongTinCaNhan</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaTaiKhoan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenTaiKhoan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MatKhau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoLot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ten)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </th>
+        
+        <th></th>
+    </tr>
+
+
+    <tr>
+        <td>
+            @Model.MaTaiKhoan
+        </td>
+        <td>
+            @Model.TenTaiKhoan
+        </td>
+        <td>
+            @Model.MatKhau
+        </td>
+        <td>
+            @Model.HoLot
+        </td>
+        <td>
+            @Model.Ten
+        </td>
+        <td>
+            @Model.Email
+        </td>
+        <td>
+            @Model.NgaySinh
+        </td>
+        <td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=Model.MaTaiKhoan }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+
+
+</table>

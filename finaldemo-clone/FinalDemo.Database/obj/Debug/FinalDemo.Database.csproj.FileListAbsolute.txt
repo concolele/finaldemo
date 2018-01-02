@@ -1,0 +1,5 @@
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo.Database\bin\Debug\FinalDemo.Database.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo.Database\bin\Debug\FinalDemo.Database.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo.Database\obj\Debug\FinalDemo.Database.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo.Database\obj\Debug\FinalDemo.Database.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemo.Database\obj\Debug\FinalDemo.Database.csprojResolveAssemblyReference.cache

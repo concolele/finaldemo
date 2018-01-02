@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Thống kê";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Thống kê</title>
+    <script src="/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="/Scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+</head>
+
+<body>
+    <button type="button" data-toggle="collapse" data-target="#demo" onclick="addButtonClick()">Xem thống kê theo lớp</button>
+    <div id="demo" class="collapse">
+        <select id="cbbLop" onchange="cbbLopChange();">
+            <option value="">Chọn Lớp</option>
+        </select>
+        <div id="tableThongKe">
+
+        </div>
+               
+    </div>  
+    <a href="@Url.Action("Report")">Generate User Report</a>     
+    <script>
+        //<a href="/ThongKe/Report">ShowReport</a>
+            function addButtonClick() {
+                $("#cbbLop").html("<option value=''>Chọn Lớp</option>");
+                $.ajax({
+                    type: "POST",
+                    url: "/ThongKe/GetAllLops",
+                })
+                .done(function (msg) {
+                    $("#cbbLop").html($("#cbbLop").html() + msg);
+                });
+            }
+            $(document).ready(function () {
+                window.setInterval(function () { cbbLopChange('/ThongKe/GetThongKeByLop', $("#tableThongKe")); }, 1000);
+                window.setInterval(function () { cbbLopChange('/ThongKe/Report', null); }, 1000);
+            });
+
+            var cbbLopChange = function (page, ele) {
+                var Lop = $("#cbbLop").val();
+                $.ajax({
+                    type: "POST",
+                    url: page,
+                    data: {
+                        Lop: Lop,
+                    }
+                })
+                .done(function (msg) {
+                    ele.html(msg);
+                });
+            };
+            //function cbbLopChange() {
+            //    var Lop = $("#cbbLop").val();
+            //    $.ajax({
+            //        type: "POST",
+            //        url: "/ThongKe/GetThongKeByLop",
+            //        data: {
+            //            Lop: Lop,
+            //        }
+            //    })
+            //    .done(function (msg) {
+            //        $("#tableThongKe").html(msg);
+            //    });
+            //}
+    </script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,21 @@
+﻿@model FinalDemo.Models.ChucNangViewModel
+
+@{
+    ViewBag.Title = "PhanQuyen";
+}
+
+<h2>PhanQuyen</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("PhanQuyen"))
+{
+    @Html.HiddenFor(x=>x.MaDoiTuong)
+    @Html.HiddenFor(x=>x.KieuDoiTuong)
+    <div>
+        <h3>Chọn:</h3>
+    </div>
+    @Html.CheckBoxListFor(x => x.PostedChucNangs.ChucNangSelect, x => x.AllChucNang, v => v.IdChucNang, v => v.TenChucNang, x => x.SelectedChucNang, MvcCheckBoxList.Model.Position.Vertical)
+    <button type="submit">Lưu</button>
+}

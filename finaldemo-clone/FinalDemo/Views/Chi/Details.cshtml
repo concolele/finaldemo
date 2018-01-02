@@ -1,0 +1,53 @@
+﻿@model FinalDemo.Models.ChiViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+<table>
+    @foreach (var item in Model.Chis)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.MaChi)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.DisplayFor(modelId => item.KiHieu)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.DisplayFor(modelId => item.Ho)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.DisplayFor(modelId => item.DPKH)</td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelId => item.TenTV)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelId => item.NguoiPH)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelId => item.NamPH)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "EditEmpty", new { id = item.MaChi }) | @Html.ActionLink("Back to List", "IndexChi")
+            </td>
+        </tr>
+    }
+</table>
+

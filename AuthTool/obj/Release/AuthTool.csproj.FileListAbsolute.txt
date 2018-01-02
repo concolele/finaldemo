@@ -1,0 +1,10 @@
+E:\Bitbucket\bdms_final\AuthTool\bin\Release\AuthTool.dll.config
+E:\Bitbucket\bdms_final\AuthTool\bin\Release\AuthTool.dll
+E:\Bitbucket\bdms_final\AuthTool\bin\Release\AuthTool.pdb
+E:\Bitbucket\bdms_final\AuthTool\bin\Release\Antlr4.StringTemplate.dll
+E:\Bitbucket\bdms_final\AuthTool\bin\Release\EntityFramework.dll
+E:\Bitbucket\bdms_final\AuthTool\bin\Release\Antlr4.StringTemplate.pdb
+E:\Bitbucket\bdms_final\AuthTool\bin\Release\EntityFramework.xml
+E:\Bitbucket\bdms_final\AuthTool\obj\Release\AuthTool.dll
+E:\Bitbucket\bdms_final\AuthTool\obj\Release\AuthTool.pdb
+E:\Bitbucket\bdms_final\AuthTool\obj\Release\AuthTool.csprojResolveAssemblyReference.cache

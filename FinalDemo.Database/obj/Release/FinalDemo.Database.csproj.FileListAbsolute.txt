@@ -1,0 +1,4 @@
+E:\Bitbucket\bdms_final\FinalDemo.Database\bin\Release\FinalDemo.Database.dll
+E:\Bitbucket\bdms_final\FinalDemo.Database\bin\Release\FinalDemo.Database.pdb
+E:\Bitbucket\bdms_final\FinalDemo.Database\obj\Release\FinalDemo.Database.dll
+E:\Bitbucket\bdms_final\FinalDemo.Database\obj\Release\FinalDemo.Database.pdb

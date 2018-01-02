@@ -1,0 +1,96 @@
+﻿@model  FinalDemo.Models.BoViewModel
+<link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+<script src="/Scripts/jquery-1.11.1.min.js"></script>
+<script src="/Scripts/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+@{
+    ViewBag.Title = "EditEmpty";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Chỉnh sửa</title>
+</head>
+<body>
+    <div class="main">
+        <div class="info-addnew">
+            <form method="post" class="form-horizontal" action="/Bo/EditEmpty">
+
+                @foreach (var item in Model.Bos)
+                {
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <input type="hidden" name="bo.MaBo" id="bo.MaBo" value='@item.MaBo' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Kí Hiệu</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="bo.KiHieu" id="bo.KiHieu" value='@item.KiHieu' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Lớp</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="Bo.Lop" id="Bo.Lop" value='@item.Lop' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Danh pháp khoa học</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="bo.DPKH" id="bo.DPKH" value='@item.DPKH' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Tên Tiếng Việt</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="bo.TenTV" id="bo.TenTV" value='@item.TenTV' class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Người phát hiện</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="bo.NguoiPH" id="bo.NguoiPH" value='@item.NguoiPH' class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Năm phát hiện</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="bo.NamPH" id="bo.NamPH" value='@item.NamPH' class="form-control" data-val="true" data-val-year="The field Release Date must be a date." data-val-required="The Release Date field is required." />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <input type="hidden" name="bo.TenNguoiTao" id="bo.TenNguoiTao" value='@item.TenNguoiTao' class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <input type="hidden" name="bo.MaNguoiTao" id="bo.MaNguoiTao" value='@item.MaNguoiTao' class="form-control" />
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-4">
+                        <input type="submit" class="btn btn-default" style="float:right;" value="Submit" />
+                    </div>
+                </div>
+
+       
+            </form>
+            </div>
+            <div>
+                @Html.ActionLink("Back to List", "IndexBo")
+            </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+﻿@model FinalDemo.Models.BoViewModel
+
+@{
+    ViewBag.Title = "IndexBo";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("CreateNew", "CreateNewBo")
+</p>
+<form method="post" action="/Bo/Search">
+    <input type="text" name="find" id="find" placeholder="Find">
+    <input type="submit" value="Search" />
+</form>
+<table border="1">
+    <tr>
+        <th>
+            KiHieu
+        </th>
+        <th>
+            DPKH
+        </th>
+        <th>
+            TenTV
+        </th>
+        <th>
+            NguoiPH
+        </th>
+        <th>
+            NamPH
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Bos)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.KiHieu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DPKH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenTV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NguoiPH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamPH)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditEmpty", new {  id=item.MaBo  }) |
+            @Html.ActionLink("Details", "Details", new { id = item.MaBo }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.MaBo })
+        </td>
+    </tr>
+}
+
+</table>

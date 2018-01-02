@@ -1,0 +1,26 @@
+﻿@model FinalDemo.Domain.Entities.Bo
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+
+@using (Html.BeginForm("Report", "ThongKe", FormMethod.Get))
+{
+
+    <fieldset>
+
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Lop, ViewBag.ListOfCodes as SelectList, "")
+            @Html.ValidationMessageFor(model => model.Lop)
+
+        </div>
+
+        <p>
+
+            <input type="submit" value="Submit" />
+
+        </p>
+
+    </fieldset>
+
+} 

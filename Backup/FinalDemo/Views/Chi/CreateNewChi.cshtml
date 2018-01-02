@@ -1,0 +1,116 @@
+﻿@model FinalDemo.Domain.Entities.Chi
+@{
+    Layout = "~/Views/Share/Index.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Tạo mới Chi</title>
+
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+</head>
+<body>
+    <div class="main">
+        @using (Html.BeginForm("CreateNewChi", "Chi"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend class="title">Chi</legend>
+
+                <div class="info-addnew">
+                    <div class="editor-label">
+                        Kí hiệu
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.KiHieu)
+                        @Html.ValidationMessageFor(model => model.KiHieu)
+                    </div>
+
+                    <div class="editor-label">
+                        Họ
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.Ho, ViewBag.ListOfCodes as SelectList, "")
+                        @Html.ValidationMessageFor(model => model.Ho)
+
+                    </div>
+
+                    <div class="editor-label">
+                        Danh pháp khoa học
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DPKH)
+                        @Html.ValidationMessageFor(model => model.DPKH)
+                    </div>
+
+                    <div class="editor-label">
+                        Tên tiếng Việt
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.TenTV)
+                        @Html.ValidationMessageFor(model => model.TenTV)
+                    </div>
+
+                    <div class="editor-label">
+                        Người phát hiện
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.NguoiPH)
+                        @Html.ValidationMessageFor(model => model.NguoiPH)
+                    </div>
+
+                    <div class="editor-label">
+                        Năm phát hiện
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.NamPH)
+                        @Html.ValidationMessageFor(model => model.NamPH)
+                    </div>
+
+                    <div class="editor-field">
+                        Ngày cập nhật
+                        @Html.TextBoxFor(model => model.NgayCapNhat, new { @class = "form-control datepicker", placeholder = "Chọn ngày..." })
+                        @Html.ValidationMessageFor(model => model.NgayCapNhat)
+                    </div>
+                    <p>
+                        <input type="submit" value="Create" />
+                    </p>
+                </div>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "IndexHo")
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () { // will trigger when the document is ready
+            $('.datepicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'yy-mm-dd',
+                showStatus: true,
+                showWeeks: true,
+                highlightWeek: true,
+                numberOfMonths: 1,
+                showAnim: "scale",
+                showOptions: {
+                    origin: ["top", "left"]
+                }
+            }); //Initialise any date pickers
+
+        });
+    </script>
+
+</body>
+</html>
+
+

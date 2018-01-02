@@ -1,0 +1,69 @@
+﻿@model IEnumerable<AuthTool.ChucNang>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+</head>
+<body>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="bg-success">
+            @TempData["msg"]
+        </div>
+    }
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Mã tài khoản</th>
+                <th>Tên tài khoản</th>
+                <th>Họ</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Chức năng</th>
+                <th>Khóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdChucNang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenChucNang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DieuKhien)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhuongThuc)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Phân Quyền", "PhanQuyen", new { id = item.IdChucNang, doiTuong = "NguoiDung" })
+                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    @Html.ActionLink("CreateNew", "CreateNew")
+
+
+</body>
+</html>

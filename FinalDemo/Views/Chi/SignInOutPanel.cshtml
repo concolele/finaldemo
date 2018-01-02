@@ -1,0 +1,13 @@
+﻿@model AuthTool.TaiKhoan
+
+@{
+    if (Model != null)
+    {
+        <p class="btn btn-default navbar-btn">@Model.Ten</p>
+        <a class="btn btn-default navbar-btn" href="/Home/SignOutUser">Đăng xuất</a>
+    }
+    else
+    {
+        <a class="btn btn-default navbar-btn" href="/NguoiDung/Index">Đăng nhập\Tạo tài khoản</a>
+    }
+}

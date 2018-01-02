@@ -1,0 +1,84 @@
+﻿@model IEnumerable<AuthTool.TaiKhoan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+</head>
+<body>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="bg-success">
+            @TempData["msg"]
+        </div>
+    }
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã tài khoản</th>
+                        <th>Tên tài khoản</th>
+                        <th>Họ</th>
+                        <th>Tên</th>
+                        <th>Email</th>
+                        <th>Chức năng</th>
+                        <th>Trạng thái</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaTaiKhoan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenTaiKhoan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HoLot)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ten)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Khoa)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Phân Quyền", "PhanQuyen", new { id = item.MaTaiKhoan, doiTuong = "NhomNguoiDung" }) |
+                                @if (item.Khoa == true)
+                                {
+                                    @Html.ActionLink("Mở", "KhoaTaiKhoan", new { id = item.MaTaiKhoan})
+                                } else 
+                                {
+                                    @Html.ActionLink("Khóa", "KhoaTaiKhoan", new { id = item.MaTaiKhoan})
+                                }
+                                |
+                                @Html.ActionLink("Phân Nhóm", "PhanNhom", new { id = item.MaTaiKhoan }) |
+                                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                            </td>
+
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+
+</body>
+</html>

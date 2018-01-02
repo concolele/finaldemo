@@ -1,0 +1,66 @@
+﻿@model AuthTool.TaiKhoan
+
+@{
+    ViewBag.Title = "CreateNewTaiKhoan";
+}
+
+<h2>CreateNewTaiKhoan</h2>
+
+@using (Html.BeginForm("CreateNewTaiKhoan","QuanTri")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TaiKhoan</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TenTaiKhoan)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TenTaiKhoan)
+            @Html.ValidationMessageFor(model => model.TenTaiKhoan)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MatKhau)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MatKhau)
+            @Html.ValidationMessageFor(model => model.MatKhau)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HoLot)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HoLot)
+            @Html.ValidationMessageFor(model => model.HoLot)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ten)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ten)
+            @Html.ValidationMessageFor(model => model.Ten)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

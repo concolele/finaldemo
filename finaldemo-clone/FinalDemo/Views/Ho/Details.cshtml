@@ -1,0 +1,53 @@
+﻿@model FinalDemo.Models.HoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+<table>
+    @foreach (var item in Model.Hos)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.MaHo)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.DisplayFor(modelId => item.KiHieu)</td>
+        </tr>
+              
+        <tr>
+            <td>@Html.DisplayFor(modelId => item.Bo)</td>
+        </tr>
+               
+        <tr>
+            <td>@Html.DisplayFor(modelId => item.DPKH)</td>
+        </tr>
+        
+        <tr>
+            <td>
+                @Html.DisplayFor(modelId => item.TenTV)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelId => item.NguoiPH)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelId => item.NamPH)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "EditEmpty", new { id = item.MaHo }) | @Html.ActionLink("Back to List", "IndexBo")
+            </td>
+        </tr>
+    }
+</table>
+

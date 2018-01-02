@@ -1,0 +1,201 @@
+﻿@model FinalDemo.Domain.Entities.Loai
+@{
+    Layout = "~/Views/Share/Index.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Tạo mới Loài</title>
+
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+</head>
+<body>
+    <div class="main">
+        @using (Html.BeginForm("CreateNewLoai", "Loai", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend class="title">Loài</legend>
+                <div class="info-addnew left">
+                    <div class="editor-label">
+                        Kí hiệu
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.KiHieu)
+                        @Html.ValidationMessageFor(model => model.KiHieu)
+                    </div>
+
+                    <div class="editor-label">
+                        Chi
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.Chi, ViewBag.ListOfCodes as SelectList, "")
+                        @Html.ValidationMessageFor(model => model.Chi)
+                    </div>
+
+                    <div class="editor-label">
+                        Danh pháp khoa học
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DPKH)
+                        @Html.ValidationMessageFor(model => model.DPKH)
+                    </div>
+
+                    <div class="editor-label">
+                        Tên thường gọi
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.TenTG)
+                        @Html.ValidationMessageFor(model => model.TenTG)
+                    </div>
+
+                    <div class="editor-label">
+                        Tên khác
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.TenK)
+                        @Html.ValidationMessageFor(model => model.TenK)
+                    </div>
+
+                    <div class="editor-label">
+                        Số lượng
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.SoLuong)
+                        @Html.ValidationMessageFor(model => model.SoLuong)
+                    </div>
+
+                    <div class="editor-label">
+                        Đặc điểm sinh sản
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DDSinhSan)
+                        @Html.ValidationMessageFor(model => model.DDSinhSan)
+                    </div>
+
+                    <div class="editor-label">
+                        Đặc điểm giới tính
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DDGioiTinh)
+                        @Html.ValidationMessageFor(model => model.DDGioiTinh)
+                    </div>
+
+                    <div class="editor-label">
+                        Đặc điểm khác
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DDKhac)
+                        @Html.ValidationMessageFor(model => model.DDKhac)
+                    </div>
+
+                    <div class="editor-label">
+                        Mức độ
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.MucDo)
+                        @Html.ValidationMessageFor(model => model.MucDo)
+                    </div>
+
+                    <div class="editor-label">
+                        Người phát hiện
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.NguoiPH)
+                        @Html.ValidationMessageFor(model => model.NguoiPH)
+                    </div>
+
+                    <div class="editor-label">
+                        Năm phát hiện
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.NamPH)
+                        @Html.ValidationMessageFor(model => model.NamPH)
+                    </div>
+
+                    <div class="editor-label">
+                        Tập tinh sinh học
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.TapTinhSH)
+                        @Html.ValidationMessageFor(model => model.TapTinhSH)
+                    </div>
+
+                    <div class="editor-label">
+                        Kich cỡ trung bình
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.KichCoTB)
+                        @Html.ValidationMessageFor(model => model.KichCoTB)
+                    </div>
+
+                    <div class="editor-label">
+                        Thức ăn
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.ThucAn)
+                        @Html.ValidationMessageFor(model => model.ThucAn)
+                    </div>
+
+                    <div class="editor-label">
+                        Xuất xứ
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.XuatXu)
+                        @Html.ValidationMessageFor(model => model.XuatXu)
+                    </div>
+                    <div class="editor-field">
+                        Ngày cập nhật
+                        @Html.TextBoxFor(model => model.NgayCapNhat, new { @class = "form-control datepicker", placeholder = "Chọn ngày..." })
+                        @Html.ValidationMessageFor(model => model.NgayCapNhat)
+                    </div>
+                    <div class="editor-label">
+                        Hình ảnh
+                    </div>
+                    <div class="editor-field">
+                        <input class="addImage" type="file" name="file" />
+                    </div>
+
+                    <p>
+                        <input type="submit" value="Tạo mới" />
+                    </p>
+                </div>
+
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Trở về", "Index")
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () { // will trigger when the document is ready
+            $('.datepicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'yy-mm-dd',
+                showStatus: true,
+                showWeeks: true,
+                highlightWeek: true,
+                numberOfMonths: 1,
+                showAnim: "scale",
+                showOptions: {
+                    origin: ["top", "left"]
+                }
+            }); //Initialise any date pickers
+
+        });
+    </script>
+</body>
+</html>
+
+
+

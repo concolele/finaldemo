@@ -1,0 +1,376 @@
+﻿@{
+    Layout = "~/Views/Share/Index.cshtml";
+}
+<link href="/Contents/styleHome.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Hệ thống quản lý sinh học - Đại học Sư phạm Đà Nẵng</title>
+    <script src="/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="/Scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+    <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.4"></script>
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #pointButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 40;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.10/"></script>
+    <script>
+        var map;
+        var currentPoint = null;
+        require([
+        "dojo/parser",
+        "dojo/ready",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dojo/dom",
+        "esri/map",
+        //"esri/Color",
+        "esri/urlUtils",
+        "esri/arcgis/utils",
+        "esri/dijit/Legend",
+        "esri/dijit/Scalebar",
+        "dojo/domReady!"
+        ], function (
+        parser,
+        ready,
+        BorderContainer,
+        ContentPane,
+        dom,
+        Map,
+        urlUtils,
+        arcgisUtils,
+        Legend,
+        //Color,
+        Scalebar
+        ) {
+            ready(function () {
+                parser.parse();
+                //711d128d63b149d3bfbe4becabbf15ed đà nẵng basemap
+                //ff5b347d83f64a1b8fa8823739c60329
+                //9bf53a5574d940df8642b9040877ce39,711d128d63b149d3bfbe4becabbf15ed
+                //
+                arcgisUtils.createMap("711d128d63b149d3bfbe4becabbf15ed", "map").then(function (response) {
+                    //update the app
+                    map = response.map;
+                    //var makerSimple =new esri.symbol.SimpleMarkerSymbol().setSize(10).setColor(new Color([255,0,0]));
+                    var xmin = 0;
+                    var xmax = 0;
+                    var ymin = 0;
+                    var ymax = 0;
+                    var list = @Html.Raw(Json.Encode(ViewBag.Coor));
+                    for(i=0 ; i<list.length ; i++){
+                        map.graphics.add(new esri.Graphic(new esri.geometry.Point(list[i].ViDo, list[i].KinhDo, map.spatialReference),new esri.symbol.SimpleMarkerSymbol()));
+                    }
+                    dojo.connect(map, "onExtentChange", showExtent);
+
+                    function showExtent(evt) {
+                        var s = "";
+                        s = "XMin: "+ evt.xmin.toFixed()    + "&nbsp;"
+                            +"YMin: " + evt.ymin.toFixed()  + "&nbsp;"
+                            +"XMax: " + evt.xmax.toFixed()  + "&nbsp;"
+                            +"YMax: " + evt.ymax.toFixed()  + "&nbsp;";
+                        xmin = evt.xmin.toFixed();
+                        xmax = evt.xmax.toFixed();
+                        ymin = evt.ymin.toFixed();
+                        ymax = evt.ymax.toFixed();
+                        dojo.byId("info").innerHTML = s;
+
+                    }
+                    //chỉ cần kiểm tra điểm mới sau khi đánh dấu
+                    map.on("click", mapClick);
+
+                    function mapClick(evt) {
+                        var x = evt.mapPoint.x.toFixed();
+                        var y = evt.mapPoint.y.toFixed(); //alert("x= " + x + " y= " + y);alert(xmin + " " + xmax + " " + ymin + " " + ymax);
+                        var isPointExist = false;
+                        for(i=0 ; i<list.length ; i++){
+                            //var xdis = ((xmax-xmin)/96/2 == 0) ? 1100 : (xmax-xmin)/96/2;
+                            //var ydis = ((ymax-ymin)/41/2 == 0) ? 1100 : (ymax-ymin)/41/2;
+                            var xdis = ((xmax-xmin)/96/2 == 0) ? 2200 : (xmax-xmin)/96;
+                            var ydis = ((ymax-ymin)/41/2 == 0) ? 2200 : (ymax-ymin)/41;
+                            if ((Math.abs(x - list[i].ViDo) < xdis) && (Math.abs(y - list[i].KinhDo) < ydis)){
+                                x = list[i].ViDo;
+                                y = list[i].KinhDo;
+                                isPointExist = true; //alert(isPointExist);
+                                break;
+                            }
+                        }
+                        $("#x").val(x);// + "," + xmax + "," +ymax);
+                        $("#y").val(y);// + "," + xmin + "," +ymin);
+
+                        if (isPointExist){
+                            $.ajax({
+                                type: "POST",
+                                url: "/Home/ThongTinPhanBo",
+                                data: {
+                                    x : x,
+                                    y : y,
+                                }
+                            })
+                            .done(function (msg) {
+                                $("#msg").html(msg);
+                            });
+                        }
+                        if (isPointExist == false){
+                            $("#msg").html("Chưa có dữ liệu<br>");
+                            newPoint = new esri.Graphic(evt.mapPoint, new esri.symbol.SimpleMarkerSymbol);
+                            map.graphics.add(newPoint);
+                            if (currentPoint != null) {
+                                map.graphics.remove(currentPoint);
+                            }
+
+                            currentPoint = newPoint;
+
+                            //break;
+                        }
+
+                        var resizeTimer;
+                        dojo.connect(dijit.byId("map"), "resize", function() {
+                            clearTimeout(resizeTimer);
+
+                            resizeTimer = setTimeout(function() {
+                                map.resize();
+                                map.reposition();
+                                map.time
+                            }, 500);
+                        });
+                        $('#myModal').modal('toggle');
+                        $("#demo").attr("class", "collapse");
+
+                    } // the end mapClick
+
+
+
+                    var scalebar = new Scalebar({
+                        map: map,
+                        scalebarUnit: "english"
+                    });
+
+                    //add the legend. Note that we use the utility method getLegendLayers to get
+                    //the layers to display in the legend from the createMap response.
+                    var legendLayers = arcgisUtils.getLegendLayers(response);
+                    var legendDijit = new Legend({
+                        map: map,
+                        layerInfos: legendLayers
+                    }, "legend");
+                    legendDijit.startup();
+
+
+
+                });//the end createMap
+                //dojo.read();
+            });//the end ready function
+        });// the end require
+
+        $(document).ready(function () {
+            $('#myModal').on('shown.bs.modal', function (e) {
+                //$("#myModalLabel")
+            });
+
+        });
+
+
+        $(document).ready(
+
+  /* This is the function that will get executed after the DOM is fully loaded */
+      function () {
+          $( "#datepicker" ).datepicker({
+              changeMonth: true,//this option for allowing user to select month
+              changeYear: true //this option for allowing user to select from year range
+          });
+      }
+);
+        function addButtonClick() {
+            $('#myModal_XemPhanBo').modal('toggle');
+            $("#cbbGioi").html("<option value=''>Chọn giới</option>");
+            $("#cbbNganh").html("");
+            $("#cbbLop").html("");
+            $("#cbbBo").html("");
+            $("#cbbHo").html("");
+            $("#cbbChi").html("");
+            $("#cbbLoai").html("");
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllGiois",
+            })
+            .done(function (msg) {
+                $("#cbbGioi").html($("#cbbGioi").html() + msg);
+            });
+        }
+
+        function cbbGioiChange() {
+            var maGioi = $("#cbbGioi").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllNganhsByGioi",
+                data: {
+                    maGioi : maGioi,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbNganh").html(msg);
+            });
+        }
+
+        function cbbNganhChange() {
+            var maNganh = $("#cbbNganh").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllLopsByNganh",
+                data: {
+                    maNganh : maNganh,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbLop").html(msg);
+            });
+        }
+
+        function cbbLopChange() {
+            var maLop = $("#cbbLop").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllBosByLop",
+                data: {
+                    maLop : maLop,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbBo").html(msg);
+            });
+        }
+
+        function cbbBoChange() {
+            var maBo = $("#cbbBo").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllHosByBo",
+                data: {
+                    maBo : maBo,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbHo").html(msg);
+            });
+        }
+
+        function cbbHoChange() {
+            var maHo = $("#cbbHo").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllChisByHo",
+                data: {
+                    maHo : maHo,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbChi").html(msg);
+            });
+        }
+
+        function cbbChiChange() {
+            var maChi = $("#cbbChi").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllLoaisByChi",
+                data: {
+                    maChi : maChi,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbLoai").html(msg);
+
+            });
+        }
+
+        function cbbLoaiChange(form){
+
+            if (form.MaLoai.value != '') {
+                $("#MaLoai").val($("#cbbLoai").val());
+            }else{
+                alert('Vui lòng chọn đầy đủ thông tin.');
+                return false;
+            }
+            
+        }
+        var displayInfo = "";
+        displayInfo = "Giới" + $("#cbbGioi").val() + "Ngành" + $("#cbbGioi").val();
+        dojo.byId("displayInfo").innerHTML = displayInfo;
+    </script>
+</head>
+<body>
+    <button type="button" onclick="addButtonClick()">Xem phân bố Loài</button>
+    <p id="displayInfo"> </p>
+    <div class="modal fade" id="myModal_XemPhanBo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Xem phân bố của</h4>
+                </div>
+
+                <form method="post" onsubmit="return cbbLoaiChange(this);"  action="">
+                    <div class="modal-body">
+                        <select id="cbbGioi" onchange="cbbGioiChange();"></select>
+                        <select id="cbbNganh" onchange="cbbNganhChange();"></select>
+                        <select id="cbbLop" onchange="cbbLopChange();"></select>
+                        <select id="cbbBo" onchange="cbbBoChange();"></select>
+                        <select id="cbbHo" onchange="cbbHoChange();"></select>
+                        <select id="cbbChi" onchange="cbbChiChange();"></select>
+                        <select id="cbbLoai" onchange="cbbLoaiChange();"></select>
+                        <input type="hidden" name="MaLoai" id="MaLoai" />
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-default" value="Xem" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+    <div id="xmin">
+
+    </div>
+    <div id="ymin">
+
+    </div>
+    <div id="map">
+        <span id="dislpayInfo" style="position:absolute; left:15px; top:5px; color:#000; z-index:50;"></span>
+        <span id="info" style="position:absolute; left:15px; bottom:5px; color:#000; z-index:50;"></span>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Phân Bố</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="msg"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/modal.js"></script>
+</body>
+</html>

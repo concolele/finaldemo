@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Tìm kiếm";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Tìm kiếm</title>
+    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#txtAutoComplete").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "GetCategory",
+                    data: "{'term':'" + $("#txtAutoComplete").val() + "'}",
+                    dataType: "json",
+                    success: function (data) {
+                        response(data.d);
+                    },
+                    error: function (result) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+    });
+
+    </script>
+
+        <form id="form1">
+            <div>
+                <input type="text" id="txtAutoComplete" />
+            </div>
+        </form>
+    </body>
+</html>
+
+

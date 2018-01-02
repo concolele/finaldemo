@@ -1,0 +1,65 @@
+﻿@model FinalDemo.Models.HoViewModel
+<link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+<script src="/Scripts/jquery-1.11.1.min.js"></script>
+<script src="/Scripts/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+
+@{
+    ViewBag.Title = "Chi tiết Họ";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            Kí Hiệu
+        </th>
+        <th>
+            Bộ
+        </th>
+        <th>
+            Danh pháp khoa học
+        </th>
+        <th>
+            Tên tiếng Việt
+        </th>
+        <th>
+            Người phát hiện
+        </th>
+        <th>
+            Năm phát hiện
+        </th>
+    </tr>
+    @foreach (var item in Model.Hos)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelId => item.KiHieu)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelId => item.Bo)
+            </td>
+
+            <td>@Html.DisplayFor(modelId => item.DPKH)</td>
+
+            <td>
+                @Html.DisplayFor(modelId => item.TenTV)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelId => item.NguoiPH)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelId => item.NamPH)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "EditEmpty", new { id = item.MaHo }) | @Html.ActionLink("Back to List", "IndexHo")
+            </td>
+        </tr>
+    }
+</table>
+

@@ -1,0 +1,38 @@
+D:\dotNET\Sports Store\AuthTool\bin\Debug\AuthTool.dll.config
+D:\dotNET\Sports Store\AuthTool\bin\Debug\AuthTool.dll
+D:\dotNET\Sports Store\AuthTool\bin\Debug\AuthTool.pdb
+D:\dotNET\Sports Store\AuthTool\bin\Debug\EntityFramework.dll
+D:\dotNET\Sports Store\AuthTool\bin\Debug\EntityFramework.xml
+D:\dotNET\Sports Store\AuthTool\obj\Debug\AuthTool.dll
+D:\dotNET\Sports Store\AuthTool\obj\Debug\AuthTool.pdb
+D:\dotNET\Sports Store\AuthTool\bin\Debug\Antlr4.StringTemplate.dll
+D:\dotNET\Sports Store\AuthTool\bin\Debug\Antlr4.StringTemplate.pdb
+E:\demo\nckh\Source\Sports Store\AuthTool\bin\Debug\AuthTool.dll.config
+E:\demo\nckh\Source\Sports Store\AuthTool\bin\Debug\AuthTool.dll
+E:\demo\nckh\Source\Sports Store\AuthTool\bin\Debug\AuthTool.pdb
+E:\demo\nckh\Source\Sports Store\AuthTool\bin\Debug\Antlr4.StringTemplate.dll
+E:\demo\nckh\Source\Sports Store\AuthTool\bin\Debug\EntityFramework.dll
+E:\demo\nckh\Source\Sports Store\AuthTool\bin\Debug\Antlr4.StringTemplate.pdb
+E:\demo\nckh\Source\Sports Store\AuthTool\bin\Debug\EntityFramework.xml
+E:\demo\nckh\Source\Sports Store\AuthTool\obj\Debug\AuthTool.csprojResolveAssemblyReference.cache
+E:\demo\nckh\Source\Sports Store\AuthTool\obj\Debug\AuthTool.dll
+E:\demo\nckh\Source\Sports Store\AuthTool\obj\Debug\AuthTool.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\bin\Debug\AuthTool.dll.config
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\bin\Debug\AuthTool.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\bin\Debug\AuthTool.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\bin\Debug\Antlr4.StringTemplate.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\bin\Debug\EntityFramework.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\bin\Debug\Antlr4.StringTemplate.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\bin\Debug\EntityFramework.xml
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\obj\Debug\AuthTool.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\AuthTool\obj\Debug\AuthTool.pdb
+E:\Bitbucket\bdms_final\AuthTool\bin\Debug\AuthTool.dll.config
+E:\Bitbucket\bdms_final\AuthTool\bin\Debug\AuthTool.dll
+E:\Bitbucket\bdms_final\AuthTool\bin\Debug\AuthTool.pdb
+E:\Bitbucket\bdms_final\AuthTool\bin\Debug\Antlr4.StringTemplate.dll
+E:\Bitbucket\bdms_final\AuthTool\bin\Debug\EntityFramework.dll
+E:\Bitbucket\bdms_final\AuthTool\bin\Debug\Antlr4.StringTemplate.pdb
+E:\Bitbucket\bdms_final\AuthTool\bin\Debug\EntityFramework.xml
+E:\Bitbucket\bdms_final\AuthTool\obj\Debug\AuthTool.dll
+E:\Bitbucket\bdms_final\AuthTool\obj\Debug\AuthTool.pdb
+E:\Bitbucket\bdms_final\AuthTool\obj\Debug\AuthTool.csprojResolveAssemblyReference.cache

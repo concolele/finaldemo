@@ -1,0 +1,7 @@
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Release\FinalDemon.Domain.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Release\FinalDemon.Domain.pdb
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Release\FinalDemo.Database.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Release\FinalDemo.Database.pdb
+E:\Bitbucket\bdms_final\FinalDemon.Domain\obj\Release\FinalDemo.Domain.csprojResolveAssemblyReference.cache
+E:\Bitbucket\bdms_final\FinalDemon.Domain\obj\Release\FinalDemon.Domain.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\obj\Release\FinalDemon.Domain.pdb

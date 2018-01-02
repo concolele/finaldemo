@@ -1,0 +1,133 @@
+﻿@model FinalDemo.Models.LoaiViewModel
+<link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+<script src="/Scripts/jquery-1.11.1.min.js"></script>
+<script src="/Scripts/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+
+<h2>Details</h2>
+
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            Kí Hiệu
+        </th>
+        <th>
+            Chi
+        </th>
+        <th>
+            Danh pháp khoa học
+        </th>
+        <th>
+            Tên tiếng Việt
+        </th>
+        <th>
+            Tên khác
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Đặc điểm sinh sản
+        </th>
+        <th>
+            Đặc điểm giới tính
+        </th>
+        <th>
+            Đặc điểm khác
+        </th>
+        <th>
+            Mức độ
+        </th>
+        <th>
+            Người phát hiện
+        </th>
+        <th>
+            Năm phát hiện
+        </th>
+        <th>
+            Tập tính sinh sản
+        </th>
+        <th>
+            Kích cỡ trung bình
+        </th>
+        <th>
+            Thức ăn
+        </th>
+        <th>
+            Xuất xứ
+        </th>
+        <th>
+            Hình ảnh
+        </th>
+    </tr>
+    @foreach (var item in Model.Loais)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelId => item.KiHieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.Chi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.DPKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.TenTG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.TenK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.DDSinhSan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.DDGioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.DDKhac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.MucDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.NguoiPH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelId => item.NamPH)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelId => item.TapTinhSH)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelId => item.KichCoTB)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelId => item.ThucAn)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelId => item.XuatXu)
+            </td>
+            <td>
+                <img src="@Url.Content("~/Photos/"+@item.Image)" alt="" class="img-rounded" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaLoai }) | @Html.ActionLink("Back to List", "IndexLoai")
+            </td>
+        </tr>
+    }
+</table>
+

@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>finaldemo</title>
+    <script src="/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="/Scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+    <script>var dojoConfig = { parseOnLoad: true };</script>
+    <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.4"></script>
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #pointButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 40;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.10/"></script>
+    <script>
+        require([
+        "dojo/parser",
+        "dojo/ready",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dojo/dom",
+        "esri/map",
+        "esri/urlUtils",
+        "esri/arcgis/utils",
+        "esri/dijit/Legend",
+        "esri/dijit/Scalebar",
+        "dojo/domReady!"
+        ], function (
+        parser,
+        ready,
+        BorderContainer,
+        ContentPane,
+        dom,
+        Map,
+        urlUtils,
+        arcgisUtils,
+        Legend,
+        Scalebar
+        ) {
+            ready(function () {
+                parser.parse();
+                //3578d3e3b925495da845e68d4795a2e2
+                //ff5b347d83f64a1b8fa8823739c60329
+                arcgisUtils.createMap("ff5b347d83f64a1b8fa8823739c60329", "map").then(function (response) {
+                    //alert(response);
+                    //update the app
+                    var map = response.map;
+                    //map.graphics.add(new esri.Graphic(new esri.geometry.Point(11707048, 2459264, map.spatialReference), new esri.symbol.SimpleMarkerSymbol ));
+                    //map.graphics.add(new esri.Graphic(new esri.geometry.Point(11707048, 2458264, map.spatialReference), new esri.symbol.SimpleMarkerSymbol));
+
+                    var xmin = 0;
+                    var xmax = 0;
+                    var ymin = 0;
+                    var ymax = 0;
+                    var list = @Html.Raw(Json.Encode(ViewBag.Coor));
+                    for(i=0 ; i<list.length ; i++){
+                        map.graphics.add(new esri.Graphic(new esri.geometry.Point(list[i].ViDo, list[i].KinhDo, map.spatialReference), new esri.symbol.SimpleMarkerSymbol));
+                    }
+                    dojo.connect(map, "onExtentChange", showExtent);
+
+                    function showExtent(evt) {
+                        var s = "";
+                        s = "XMin: "+ evt.xmin.toFixed()    + "&nbsp;"
+                            +"YMin: " + evt.ymin.toFixed()  + "&nbsp;"
+                            +"XMax: " + evt.xmax.toFixed()  + "&nbsp;"
+                            +"YMax: " + evt.ymax.toFixed()  + "&nbsp;";
+                        xmin = evt.xmin.toFixed();
+                        xmax = evt.xmax.toFixed();
+                        ymin = evt.ymin.toFixed();
+                        ymax = evt.ymax.toFixed();
+                        dojo.byId("info").innerHTML = s;
+                        
+                    }
+                    map.on("click", mapClick);
+                    function mapClick(evt) {
+                        var x = evt.mapPoint.x.toFixed();
+                        var y = evt.mapPoint.y.toFixed(); //alert("x= " + x + " y= " + y);alert(xmin + " " + xmax + " " + ymin + " " + ymax);
+                        var isPointExist = false;
+                        for(i=0 ; i<list.length ; i++){
+                            var xdis = ((xmax-xmin)/96/2 == 0) ? 1100 : (xmax-xmin)/96/2;
+                            var ydis = ((ymax-ymin)/41/2 == 0) ? 1100 : (ymax-ymin)/41/2;
+                            if ((Math.abs(x - list[i].ViDo) < xdis) && (Math.abs(y - list[i].KinhDo) < ydis)){
+                                x = list[i].ViDo;
+                                y = list[i].KinhDo;
+                                isPointExist = true; //alert(isPointExist);
+                                break;
+                            }
+                        }
+                        $("#x").val(x);// + "," + xmax + "," +ymax);
+                        $("#y").val(y);// + "," + xmin + "," +ymin);
+
+                        if (isPointExist){
+                            $.ajax({
+                                type: "POST",
+                                url: "/Home/View",
+                                data: {
+                                    x : x,
+                                    y : y,
+                                }
+                            })
+                            .done(function (msg) {
+                                $("#msg").html(msg);
+                            });
+                        }
+                        if (isPointExist == false){
+                            $("#msg").html("Chưa có dữ liệu<br>");
+
+                            map.graphics.add(new esri.Graphic(evt.mapPoint, new esri.symbol.SimpleMarkerSymbol));
+                        }
+
+                        var resizeTimer;
+                        dojo.connect(dijit.byId("map"), "resize", function() {
+                            clearTimeout(resizeTimer);
+
+                            resizeTimer = setTimeout(function() {
+                                map.resize();
+                                map.reposition();
+                                map.tim
+                            }, 500);
+                        });
+                        $('#myModal').modal('toggle');
+                        $("#demo").attr("class", "collapse");
+
+                    } // the end mapClick
+
+
+
+                    function UpdateVal(x, y) {
+                        $.ajax({
+                            type: 'POST',
+                            data: {
+                                xVal: x,
+                                yVal: y
+                            },
+                            url: '/Home/ShowValue/',
+                            beforeSend: function () {
+                                $('#autoload').addClass('ui-autocomplete-loading');
+                            },
+                            complete: function () {
+                                $('#autoload').removeClass('ui-autocomplete-loading');
+                            },
+                            success: function (response) {
+                                $('#autoload').text(response);
+                                //result = response;
+                            }
+                        });
+                        //return result;
+                    }//the end UpdateVal
+                    //add the scalebar
+                    var scalebar = new Scalebar({
+                        map: map,
+                        scalebarUnit: "english"
+                    });
+
+                    //add the legend. Note that we use the utility method getLegendLayers to get
+                    //the layers to display in the legend from the createMap response.
+                    var legendLayers = arcgisUtils.getLegendLayers(response);
+                    var legendDijit = new Legend({
+                        map: map,
+                        layerInfos: legendLayers
+                    }, "legend");
+                    legendDijit.startup();
+
+
+
+                });//the end createMap
+                //dojo.read();
+            });//the end ready function
+        });// the end require
+
+        $(document).ready(function () {
+            $('#myModal').on('shown.bs.modal', function (e) {
+                //$("#myModalLabel")
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/Index">Home</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Bo/IndexBo">Bo <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/Ho/IndexHo">Ho <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/Chi/IndexChi">Chi <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/Loai/IndexLoai">Loai <span class="sr-only">(current)</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Xem <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Bo/IndexBo">Bo <span class="sr-only">(current)</span></a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Ho/IndexHo">Ho <span class="sr-only">(current)</span></a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Chi/IndexChi">Chi <span class="sr-only">(current)</span></a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Loai/IndexLoai">Loai <span class="sr-only">(current)</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <div class="nav navbar-nav navbar-right">
+                    <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+                    <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+                </div>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div id="xmin">
+
+    </div>
+    <div id="ymin">
+
+    </div>
+    <div id="map">
+        <span id="info" style="position:absolute; left:15px; bottom:5px; color:#000; z-index:50;"></span>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Phân Bố</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div id="msg"></div>
+                    @Html.ActionLink("CreateNewBo", "CreateNewHo", "Ho")
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo" onclick="addButtonClick()">Thêm Phân Bố</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div id="demo" class="collapse">
+                        <form method="post" action="/Home/AddPhanBo">
+
+
+                            <select id="cbbBo" onchange="cbbBoChange();">
+                                <option value="">Chọn bộ</option>
+                            </select>
+                            <select id="cbbHo" onchange="cbbHoChange();"></select>
+                            <select id="cbbChi" onchange="cbbChiChange();"></select>
+                            <select id="cbbLoai" onchange="cbbLoaiChange();"></select>
+                            <br />Kinh độ:<input type="text" name="x" id="x" value=$(#x).val() />
+                            <br />Vĩ độ:<input type="text" name="y" id="y" value=$(#y).val() />
+                            <br />Mã Loài:<input type="text" name="phanBo.MaLoai" id="MaLoai" />
+                            <br />Tỉ Lệ Phân Bố: <input type="text" name="phanBo.TiLePhanBo" />
+                            <br />Mật Độ: <input type="text" name="phanBo.MatDo" />
+                            <br />Số Lượng Cá Thể: <input type="text" name="phanBo.SoLuongCaThe" />
+
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-default" value="Submit" />
+                                @*<button type="button" class="btn btn-default" data-dismiss="modal" onclick="addNewBo();">Thêm Mới Bộ</button>*@
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="modal fade" id="myAddPhanBoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Thêm Phân Bố</h4>
+                </div>
+                <form method="post" action="/Home/AddPhanBo">
+                    <div class="modal-body-add">
+
+                        <select id="cbbBo" onchange="cbbBoChange();">
+                            <option value="">Chọn bộ</option>
+                        </select>
+                        <select id="cbbHo" onchange="cbbHoChange();"></select>
+                        <select id="cbbChi" onchange="cbbChiChange();"></select>
+                        <select id="cbbLoai" onchange="cbbLoaiChange();" ></select>
+                        <br />Kinh độ:<input type="text" name="x" id="x" value=$(#x).val() />
+                        <br />Vĩ độ:<input type="text" name="y" id="y" value=$(#y).val() />
+                        <br />Mã Loài:<input type="text" name="phanBo.MaLoai" id="MaLoai"  />
+                        <br />Tỉ Lệ Phân Bố: <input type="text" name="phanBo.TiLePhanBo" />
+                        <br />Mật Độ: <input type="text" name="phanBo.MatDo" />
+                        <br />Số Lượng Cá Thể: <input type="text" name="phanBo.SoLuongCaThe" />
+                     </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-default" value="Submit" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addNewBo();">Thêm Mới Bộ</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+        -->
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/modal.js"></script>
+    <script>
+        function addButtonClick() {
+            //$('#myAddPhanBoModal').modal('toggle');
+            $("#cbbBo").html("<option value=''>Chọn bộ</option>");
+            $("#cbbHo").html("");
+            $("#cbbChi").html("");
+            $("#cbbLoai").html("");
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllBos",
+            })
+            .done(function (msg) {
+                $("#cbbBo").html($("#cbbBo").html() + msg);
+            });
+        }
+
+        function cbbBoChange() {
+            var maBo = $("#cbbBo").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllHosByBo",
+                data: {
+                    maBo : maBo,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbHo").html(msg);
+            });
+        }
+
+        function cbbHoChange() {
+            var maHo = $("#cbbHo").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllChisByHo",
+                data: {
+                    maHo : maHo,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbChi").html(msg);
+            });
+        }
+
+        function cbbChiChange() {
+            var maChi = $("#cbbChi").val();
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetAllLoaisByChi",
+                data: {
+                    maChi : maChi,
+                }
+            })
+            .done(function (msg) {
+                $("#cbbLoai").html(msg);
+                //$("#cbbLoai option:selected").html(msg);
+                //$("#phanBo.MaLoai").val($("#cbbLoai option:selected").text());
+
+            });
+        }
+
+        function cbbLoaiChange(){
+            //alert("aaa");
+            //alert($("#cbbLoai").val());
+            //document.getElementById("phanBo.MaLoai").innerHTML="a";
+            $("#MaLoai").val($("#cbbLoai").val());
+        }
+
+        @*function addNewBo(){
+            @Html.ActionLink("CreateNewBo", "Home");
+        }*@
+
+        //function submitAddPhanBo() {
+        //    $("#home").click();
+        //    var maLoai = $("#cbbLoai").val();
+        //    x = $("#x").val();
+        //    y = $("#y").val();
+        //    vungPhanBo = $("#vungPhanBo").val();
+        //    tiLePhanBo = $("#tiLePhanBo").val();
+        //    matDo = $("#matDo").val();
+        //    SLCT = $("#SLCT").val();
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Home/AddPhanBo",
+        //        data: {
+        //            maLoai : maLoai,
+        //            x : x,
+        //            y : y,
+        //            vungPhanBo : vungPhanBo,
+        //            tiLePhanBo : tiLePhanBo,
+        //            matDo : matDo,
+        //            SLCT : SLCT,
+        //        }
+        //    })
+        //    .done(function (msg) {
+        //        $("#home").click();
+        //    });
+
+        //}
+
+    </script>
+    <a id="home" href="/Home/Index">About this Website</a>
+</body>
+</html>

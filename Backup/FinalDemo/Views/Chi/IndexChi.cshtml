@@ -1,0 +1,78 @@
+﻿@model FinalDemo.Models.ChiViewModel
+@{
+    ViewBag.Title = "Thông tin Chi";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Thông tin Bộ</title>
+
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+    <script type="text/javascript">
+        $(function () {
+            $("#txtSearch").autocomplete({
+                source: '@Url.Action("SearchAuto")',
+                minLenght: 2
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="main">
+        <div class="search">
+            @using (Html.BeginForm())
+            {
+                @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
+                <input type="submit" value="Tìm Kiếm" />
+            }
+
+
+        </div>
+        <table class="table">
+
+            <tr class="trbo">
+                <th>
+                    Danh pháp khoa học
+                </th>
+                <th>
+                    Tên tiếng việt
+                </th>
+                <th>
+                    Người phát hiện
+                </th>
+                <th>
+                    Năm phát hiện
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Chis)
+            {
+                <tr class="info_bo">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DPKH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenTV)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NguoiPH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NamPH)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿@model FinalDemo.Models.BoViewModel
+
+@{
+    Layout = "~/Views/Share/Index.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+    <script src="/Scripts/jquery-1.11.1.min.js"></script>
+    <script src="/Scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+    <title>Chi tiết</title>
+
+</head>
+<body>
+
+
+    <table class="table table-hover">
+        <tr>
+            <th>
+                Danh pháp khoa học
+            </th>
+            <th>
+                Tên tiếng Việt
+            </th>
+            <th>
+                Người phát hiện
+            </th>
+            <th>
+                Năm phát hiện
+            </th>
+            <th>
+                Thao tác
+            </th>
+        </tr>
+        @foreach (var item in Model.Bos)
+        {
+
+            <tr>
+                <td>@Html.DisplayFor(modelId => item.DPKH)</td>
+
+                <td>
+                    @Html.DisplayFor(modelId => item.TenTV)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelId => item.NguoiPH)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelId => item.NamPH)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "EditEmpty", new { id = item.MaBo }) | @Html.ActionLink("Back to List", "IndexBo")
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

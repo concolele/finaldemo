@@ -1,0 +1,160 @@
+﻿@model  FinalDemo.Models.LoaiViewModel
+<link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+@{
+    ViewBag.Title = "EditEmpty";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>EditEmpty</title>
+</head>
+<body>
+    <form method="post" class="form-horizontal" action="/Loai/Edit" enctype="multipart/form-data">
+
+        @foreach (var item in Model.Loais)
+        {
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Mã Loài</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.MaLoai" id="Loai.MaLoai" class="form-control" value='@item.MaLoai' readonly />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Kí Hiệu</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.KiHieu" id="Loai.KiHieu" class="form-control" value='@item.KiHieu' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Chi</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.Chi" id="Loai.Chi" class="form-control" value='@item.Chi' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Danh Pháp Khoa Học</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.DPKH" id="Loai.DPKH" class="form-control" value='@item.DPKH' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Tên Tiếng Việt</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.TenTG" id="Loai.TenTG" class="form-control" value='@item.TenTG' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Tên Khác</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.TenK" id="Loai.TenK" class="form-control" value='@item.TenK' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Số Lượng Cá Thể</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.SoLuong" id="Loai.SoLuong" class="form-control" value='@item.SoLuong' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Đặc điểm sinh sản</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.DDSinhSan" id="Loai.DDSinhSan" class="form-control" value='@item.DDSinhSan' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Đặc điểm giới tính</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.DDGioiTinh" id="Loai.DDGioiTinh" class="form-control" value='@item.DDGioiTinh' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Đặc điểm khác</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.DDKhac" id="Loai.DDKhac" class="form-control" value='@item.DDKhac' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Mức độ báo động</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.MucDo" id="Loai.MucDo" class="form-control" value='@item.MucDo' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Người phát hiện</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.NguoiPH" id="Loai.NguoiPH" class="form-control" value='@item.NguoiPH' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Năm phát hiện</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.NamPH" id="Loai.NamPH" class="form-control" value='@item.NamPH' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Tập tính sinh học</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.TapTinhSH" id="Loai.TapTinhSH" class="form-control" value='@item.TapTinhSH' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Kích cỡ trung bình</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.KichCoTB" id="Loai.KichCoTB" class="form-control" value='@item.KichCoTB' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Thức ăn</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.ThucAn" id="Loai.ThucAn" class="form-control" value='@item.ThucAn' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Xuất xứ</label>
+                <div class="col-sm-10">
+                    <input type="text" name="Loai.XuatXu" id="Loai.XuatXu" class="form-control" value='@item.XuatXu' />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Hình ảnh</label>
+                <div class="col-sm-10">
+                    <img src="~/Photos/@item.Image" width="100" height="100" />
+                    <label class="col-sm-2 control-label"></label>
+
+                    <div class="editor-field">
+                        <input type="file" name="file" />
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <br /><input type="submit" class="btn btn-default" value="Submit" />
+    </form>
+
+    <div>
+        @Html.ActionLink("Back to List", "IndexLoai")
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\bin\Debug\FinalDemon.Domain.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\bin\Debug\FinalDemon.Domain.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\bin\Debug\FinalDemo.Database.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\bin\Debug\FinalDemo.Database.pdb
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\obj\Debug\FinalDemo.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\obj\Debug\FinalDemon.Domain.dll
+C:\Users\Vinh\Documents\Visual Studio 2013\Projects\FinalDemo\FinalDemon.Domain\obj\Debug\FinalDemon.Domain.pdb
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\FinalDemon.Domain.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\FinalDemon.Domain.pdb
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\AuthTool.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\FinalDemo.Database.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\EntityFramework.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\Antlr4.StringTemplate.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\AuthTool.pdb
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\FinalDemo.Database.pdb
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\EntityFramework.xml
+E:\Bitbucket\bdms_final\FinalDemon.Domain\bin\Debug\Antlr4.StringTemplate.pdb
+E:\Bitbucket\bdms_final\FinalDemon.Domain\obj\Debug\FinalDemo.Domain.csprojResolveAssemblyReference.cache
+E:\Bitbucket\bdms_final\FinalDemon.Domain\obj\Debug\FinalDemon.Domain.dll
+E:\Bitbucket\bdms_final\FinalDemon.Domain\obj\Debug\FinalDemon.Domain.pdb

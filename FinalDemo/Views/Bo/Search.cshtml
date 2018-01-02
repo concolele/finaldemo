@@ -1,0 +1,65 @@
+﻿@model FinalDemo.Models.BoViewModel
+<link rel="stylesheet" href="/Contents/bootstrap.min.css" />
+<script src="/Scripts/jquery-1.11.1.min.js"></script>
+<script src="/Scripts/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/Contents/jquery-ui.min.css" />
+
+@{
+    ViewBag.Title = "Tìm kiếm";
+    Layout = "~/Views/Share/Index.cshtml";
+}
+
+<p>
+    @Html.ActionLink("CreateNew", "CreateNewBo")
+</p>
+<form method="post" action="/Bo/Search">
+    <input type="text" name="find" id="find" placeholder="Find">
+    <input type="submit" value="Search" />
+    <table class="table table-hover">
+        <tr>
+            <th>
+                Kí hiệu
+            </th>
+            <th>
+                Danh pháp khoa học
+            </th>
+            <th>
+                Tên tiếng việt
+            </th>
+            <th>
+                Người phát hiện
+            </th>
+            <th>
+                Năm phát hiện
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Bos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KiHieu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DPKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenTV)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NguoiPH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamPH)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditEmpty", new { id = item.MaBo }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MaBo }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaBo })
+                </td>
+            </tr>
+        }
+
+    </table>
+</form>
+
